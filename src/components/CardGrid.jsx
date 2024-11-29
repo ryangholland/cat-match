@@ -17,7 +17,11 @@ function CardGrid() {
           throw new Error("Network response was not ok");
         }
         const result = await response.json();
-        setData(result);
+
+        // Duplicate each cat object, shuffle array, set data
+        setData(
+          result.flatMap((obj) => [obj, obj]).sort(() => Math.random() - 0.5)
+        );
       } catch (err) {
         setError(err.message);
       } finally {
@@ -33,29 +37,9 @@ function CardGrid() {
 
   return (
     <div className="container mx-auto grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-5 md:gap-4 p-2 justify-center place-items-center max-w-2xl">
-      <CatCard imageUrl={data[0].url} />
-      <CatCard />
-      <CatCard />
-      <CatCard />
-      <CatCard />
-
-      <CatCard />
-      <CatCard />
-      <CatCard />
-      <CatCard />
-      <CatCard />
-
-      <CatCard />
-      <CatCard />
-      <CatCard />
-      <CatCard />
-      <CatCard />
-
-      <CatCard />
-      <CatCard />
-      <CatCard />
-      <CatCard />
-      <CatCard />
+      {data.map((catObject, index) => {
+        return <CatCard key={index} imageUrl={catObject.url} />;
+      })}
     </div>
   );
 }
