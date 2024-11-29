@@ -1,5 +1,6 @@
 import { useState } from "react";
-const FlippingCard = () => {
+
+function CatCard({ imageUrl }) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
@@ -20,12 +21,14 @@ const FlippingCard = () => {
       >
         {/* Front Side */}
         <div
-          className="absolute w-full h-full bg-blue-500 text-white flex items-center justify-center rounded-lg"
+          className="absolute w-full h-full bg-cover bg-center flex items-center justify-center rounded-lg"
           style={{
             backfaceVisibility: "hidden", // Hides the back
+            backgroundImage: `url(${imageUrl})`,
           }}
+          onClick={() => console.log(imageUrl)}
         >
-          Front
+          
         </div>
 
         {/* Back Side */}
@@ -40,6 +43,6 @@ const FlippingCard = () => {
       </div>
     </div>
   );
-};
+}
 
-export default FlippingCard;
+export default CatCard;
