@@ -3,7 +3,7 @@ import staticCats from "../utils/staticCats";
 
 import CatCard from "./CatCard";
 
-function CardGrid() {
+function CardGrid({ setGameActive }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -45,7 +45,6 @@ function CardGrid() {
   }, []);
 
   const handleCardClick = (id) => {
-    
     if (disableClicks || matchedCards.includes(id) || flippedCards.includes(id))
       return;
 
@@ -73,6 +72,12 @@ function CardGrid() {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
+
+  if (matchedCards.length >= 1) {
+    setTimeout(() => {
+      setGameActive(false);
+    }, 1500);
+  }
 
   return (
     <div className="container mx-auto grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-5 md:gap-4 p-2 justify-center place-items-center max-w-2xl">

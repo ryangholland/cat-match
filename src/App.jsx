@@ -28,7 +28,7 @@ function App() {
           </Button>
         )}
 
-        {gameActive && <CardGrid />}
+        {gameActive && <CardGrid setGameActive={setGameActive} />}
       </main>
 
       <footer className="bg-slate-100">
