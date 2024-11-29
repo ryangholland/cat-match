@@ -1,15 +1,11 @@
-import { useState } from "react";
-
-function CatCard({ imageUrl }) {
-  const [isFlipped, setIsFlipped] = useState(false);
-
+function CatCard({ id, imageUrl, isFlipped, handleCardClick }) {
   return (
     <div
       className="relative w-24 h-36 sm:w-28 sm:h-40"
       style={{
         perspective: "1000px", // Enables 3D perspective
       }}
-      onClick={() => setIsFlipped(!isFlipped)}
+      onClick={() => handleCardClick(id)}
     >
       {/* Card Inner */}
       <div
@@ -26,10 +22,7 @@ function CatCard({ imageUrl }) {
             backfaceVisibility: "hidden", // Hides the back
             backgroundImage: `url(${imageUrl})`,
           }}
-          onClick={() => console.log(imageUrl)}
-        >
-          
-        </div>
+        ></div>
 
         {/* Back Side */}
         <div
