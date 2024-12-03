@@ -1,10 +1,11 @@
 import { useState } from "react";
-
 import CardGrid from "./components/CardGrid";
+import DifficultySelect from "./components/DifficultySelect";
 import { Button } from "@headlessui/react";
 
 function App() {
-  const [gameActive, setGameActive] = useState(false);
+  const [screenState, setScreenState] = useState("default");
+  const [difficulty, setDifficulty] = useState("medium");
 
   return (
     <div className="flex flex-col min-h-screen ">
@@ -19,16 +20,25 @@ function App() {
       </header>
 
       <main className="flex-grow flex items-center justify-center">
-        {!gameActive && (
+        {screenState === "default" && (
           <Button
             className="rounded bg-slate-600 py-2 px-4 text-2xl text-white data-[hover]:bg-slate-500 data-[active]:bg-slate-700"
-            onClick={() => setGameActive(true)}
+            onClick={() => setScreenState("difficulty")}
           >
             Start Game
           </Button>
         )}
 
-        {gameActive && <CardGrid setGameActive={setGameActive} />}
+        {screenState === "difficulty" && (
+          <DifficultySelect
+            setDifficulty={setDifficulty}
+            setScreenState={setScreenState}
+          />
+        )}
+
+        {screenState === "active" && (
+          <CardGrid difficulty={difficulty} setScreenState={setScreenState} />
+        )}
       </main>
 
       <footer className="bg-slate-100">

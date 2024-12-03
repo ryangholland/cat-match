@@ -3,7 +3,7 @@ import staticCats from "../utils/staticCats";
 
 import CatCard from "./CatCard";
 
-function CardGrid({ setGameActive }) {
+function CardGrid({ difficulty, setScreenState }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,22 +12,28 @@ function CardGrid({ setGameActive }) {
   const [matchedCards, setMatchedCards] = useState([]);
   const [disableClicks, setDisableClicks] = useState(false);
 
+  let difficultyLength =
+    difficulty === "easy" ? 3 : difficulty === "medium" ? 6 : 10;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const response = await fetch(
-        //   "https://api.thecatapi.com/v1/images/search?limit=10"
-        // );
-        // if (!response.ok) {
-        //   throw new Error("Network response was not ok");
-        // }
-        // const result = await response.json();
-        const result = staticCats;
+        const response = await fetch(
+          `https://api.thecatapi.com/v1/images/search?limit=10`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const result = await response.json();
 
-        // Duplicate each cat object, assign new IDs,
+        // const result = staticCats;
+
+        // Slice array based on difficulty,
+        // duplicate each cat object, assign new IDs,
         // shuffle array, set data
         setData(
           result
+            .slice(0, difficultyLength)
             .flatMap((obj) => [
               { ...obj, id: `${obj.id}-a` },
               { ...obj, id: `${obj.id}-b` },
@@ -42,7 +48,7 @@ function CardGrid({ setGameActive }) {
     };
 
     fetchData();
-  }, []);
+  }, [difficultyLength]);
 
   const handleCardClick = (id) => {
     if (disableClicks || matchedCards.includes(id) || flippedCards.includes(id))
@@ -73,9 +79,10 @@ function CardGrid({ setGameActive }) {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  if (matchedCards.length >= 1) {
+  // change this appropriate for difficulty
+  if (matchedCards.length >= difficultyLength * 2) {
     setTimeout(() => {
-      setGameActive(false);
+      setScreenState("default");
     }, 1500);
   }
 
