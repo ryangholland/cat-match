@@ -39,6 +39,18 @@ function App() {
         {screenState === "active" && (
           <CardGrid difficulty={difficulty} setScreenState={setScreenState} />
         )}
+
+        {screenState === "end" && (
+          <div className="flex flex-col gap-6 text-center ">
+            <h1 className="text-4xl">You won!</h1>
+            <Button
+              className="rounded bg-slate-600 py-2 px-4 text-2xl text-white data-[hover]:bg-slate-500 data-[active]:bg-slate-700"
+              onClick={() => setScreenState("default")}
+            >
+              Main Menu
+            </Button>
+          </div>
+        )}
       </main>
 
       <footer className="bg-slate-100">

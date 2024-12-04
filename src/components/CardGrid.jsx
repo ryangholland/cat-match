@@ -82,7 +82,7 @@ function CardGrid({ difficulty, setScreenState }) {
   // change this appropriate for difficulty
   if (matchedCards.length >= difficultyLength * 2) {
     setTimeout(() => {
-      setScreenState("default");
+      setScreenState("end");
     }, 1500);
   }
 
