@@ -1,9 +1,12 @@
 import { Button } from "@headlessui/react";
 
-function DifficultySelect({setDifficulty, setScreenState}) {
+function DifficultySelect({setDifficulty, setScreenState, setScore}) {
   const handleClick = (difficulty) => {
     setDifficulty(difficulty);
     setScreenState("active");
+    setScore(difficulty === "easy" ? 50 :
+      difficulty === "medium" ? 100 : 200
+    )
   };
 
   return (

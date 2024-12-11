@@ -3,7 +3,7 @@ import staticCats from "../utils/staticCats";
 
 import CatCard from "./CatCard";
 
-function CardGrid({ difficulty, setScreenState }) {
+function CardGrid({ difficulty, setScreenState, setScore }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -66,8 +66,17 @@ function CardGrid({ difficulty, setScreenState }) {
       if (catsToCompare[0].url === catsToCompare[1].url) {
         setMatchedCards([...matchedCards, ...newFlippedCards]);
         setFlippedCards([]);
+        setScore((prev) => prev + 25);
       } else {
         setDisableClicks(true);
+        setScore((prev) => {
+          let newScore = prev - 10;
+          if (newScore > 0) {
+            return newScore;
+          } else {
+            return 0;
+          }
+        });
         setTimeout(() => {
           setFlippedCards([]);
           setDisableClicks(false);
@@ -79,7 +88,6 @@ function CardGrid({ difficulty, setScreenState }) {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  // change this appropriate for difficulty
   if (matchedCards.length >= difficultyLength * 2) {
     setTimeout(() => {
       setScreenState("end");
