@@ -13,7 +13,7 @@ function App() {
       <header className="bg-slate-100">
         <div className="container mx-auto p-4 max-w-6xl flex justify-around items-center">
           <img
-            src="./src/assets/logo.png"
+            src="/logo.png"
             alt="CatMatch logo"
             className="w-32 h-auto"
           />

@@ -30,7 +30,7 @@ function CatCard({ id, imageUrl, isFlipped, handleCardClick }) {
           style={{
             backfaceVisibility: "hidden", // Hides the front
             transform: "rotateY(180deg)", // Rotate the back side
-            backgroundImage: `url(./src/assets/card-back.png)`,
+            backgroundImage: `url(/card-back.png)`,
           }}
         ></div>
       </div>
